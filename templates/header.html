@@ -1,0 +1,128 @@
+{% load static %}
+{% load thumbnail %}
+
+{% block js %}
+
+{% endblock %}
+
+<header>
+    <!--Подключить стилевой файл плагина-->
+	<link rel="stylesheet" href="{% static 'plugin/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugin/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+
+    <div id="header-fixed">
+        <div id="top-header">
+            <div id="top-header-contacts">
+                <p>+7(342)520-23-18</p>
+                <p><a href="mailto:info@hotel.ru">info@hotel.ru</a></p>
+            </div>
+
+            <div id="top-header-logo">
+                <img src="{% static 'img/logo-white.png' %}" alt="GRAND HOTEL PERM" id="logo">
+                <p>TOP HOTEL PERM</p>
+            </div>
+
+        </div>
+
+
+        <nav id="top-menu-nav">
+            <ul id="top-menu-ul">
+                <li class="menu-item">
+                    <a href="{% url 'home' %}">ГЛАВНАЯ</a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="{% url 'rooms' %}">НОМЕРА</a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="{% url 'booking_filter' %}">БРОНИРОВАНИЕ</a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="{% url 'contacts' %}">КОНТАКТЫ</a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="{% url 'admin:index' %}">АДМИНИСТРИРОВАНИЕ_убрать_ссылку</a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="{% url 'faq' %}">FAQ</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+    <!--карусель фото-->
+    <div class="owl-carousel owl-theme" id="owl-carousel-header">
+        <!--структура под изображение - будет заполняться в скрипте -->
+        <div class="item">
+            <img src="{% static 'img/perm_1.jpg' %}"
+                alt="perm_1.jpg"
+                class="img_title">
+        </div>
+
+        <div class="item">
+            <img src="{% static 'img/perm_4.jpg' %}"
+                alt="perm_4.jpg"
+                class="img_title">
+        </div>
+
+        <div class="item">
+            <img src="{% static 'img/perm_3.jpg' %}"
+                alt="perm_3.jpg"
+                class="img_title">
+        </div>
+
+        <div class="item">
+            <img src="{% static 'img/perm_4.jpg' %}"
+                alt="perm_4.jpg"
+                class="img_title">
+        </div>
+
+        <div class="item">
+            <img src="{% static 'img/perm_5.jpg' %}"
+                alt="perm_4.jpg"
+                class="img_title">
+        </div>
+
+        <div class="item">
+            <img src="{% static 'img/perm_6.jpg' %}"
+                alt="perm_4.jpg"
+                class="img_title">
+        </div>
+    </div>
+
+
+<!--    <script>-->
+<!--        //0 получить массив изображений-->
+<!--        var arrImg = ["img/grapefruit.jpg", -->
+<!--                    "img/mango.jpg", -->
+<!--                    "img/orange.jpg", ];-->
+
+<!--        // 1 DOM-->
+<!--        for (img of arrImg){-->
+<!--            let newDiv = document.createElement('div');-->
+<!--            newDiv.className = 'item';-->
+<!--            $('.owl-carousel').append(newDiv);-->
+
+<!--            let newImg = document.createElement('img');-->
+<!--            newImg.src = img;-->
+<!--            newImg.className = 'img_title';-->
+<!--            newDiv.append(newImg);-->
+<!--        }-->
+<!--    </script>>-->
+
+
+	<!-- Сначала подключаем js-файл с jQuery-->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <!--подключаем js-файл плагина после jQuery:-->
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <!--    иой скрипт обработки -->
+    <script  src="{% static 'js/img-carusel.js' %}"></script>
+</header>

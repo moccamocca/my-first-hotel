@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TOP HOTEL PERM</title>
+    <link rel="icon" href="{% static 'img/logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>  <!-- Сначала подключаем js-файл с jQuery-->
+
+    {% block css %}
+    {% endblock %}
+</head>
+
+<body>
+    <!--всплывающее окно-->
+    <form action="{% url 'booking_filter' %}" id="popup-form">
+        <img src="{% static 'img/newyear.jpg' %}" alt="newyear.jpg">
+        <div>
+            <h3>Новогодняя ночь 31.12.2023</h3>
+            <p>Успейте забронировать новогоднюю ночь!</p>
+            <input type="submit" value="Забронировать" id="popup-booking">
+            <button type="button" id="popup-close">X</button>
+        </div>
+    </form>
+
+    {% include 'header.html' %}
+
+    {% block content %}
+    {% endblock %}
+
+    {% include 'footer.html' %}
+
+    {% block js %}
+    {% endblock %}
+
+    <script  src="{% static 'js/form-interval.js' %}"></script>
+</body>
+</html>

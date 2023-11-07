@@ -1,0 +1,125 @@
+{% extends 'index.html' %}
+{% load thumbnail %}
+{% load static %}
+{% load define_action %}
+{% load humanize %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/room_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/rooms_list.css' %}">
+{% endblock %}
+
+{% block js %}
+    <script src="scripts/jquery.min.js"></script>
+    <script  src= "{% static 'js/phone.js' %}"></script>
+    <script  src= "{% static 'js/wait-window.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <span class="no-modal"></span>   <!--обработка в form-interval.js-->
+
+    <div class="room">
+        <!--Фото-карусель-->
+        <div class="photos">
+            <div class="owl-carousel owl-theme owl-carousel-rooms">
+                {% for photo in photos %}
+                    {% if photo.room_id == room.id %}
+                        {% thumbnail photo.photo "550x450" crop="center" as im %}
+                            <img src="{{ im.url }}"
+                                 alt="Номер {{ room.name }}"
+                                 class="room-img-list">
+                        {% endthumbnail %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="room-options">
+            <!--Опции-->
+            <div>
+                <!--Название номера-->
+                <h2>{{ room.name }}  / room.id = {{ room.id }} / </h2>
+
+                <ul>
+                    {% for el in options %}
+                        {% if el.room_id == room.id %}
+                            <li>{{ el.option.name }}</li>
+                        {% endif %}
+                    {% endfor %}
+
+                    <!--Вместимость-->
+                    <li>до {{ room.capacity }} чел.</li>
+
+                    <!--Цена-->
+                    <li>{{ room.price }} руб/сутки</li>
+
+                    <!--номер комнаты-->
+                    <p>id номер = {{ roomnumbers.id }}</p>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="data-booking">
+        <div>
+            <h2>Ваша бронь: 1 номер</h2>
+
+            <!-- количество ночей -->
+            {% if night == 1 %}
+                {% define 'ночь' as str_night %}
+            {% elif night < 5 %}
+                {% define 'ночи' as str_night %}
+            {% else %}
+                {% define 'ночей' as str_night %}
+            {% endif %}
+
+            <p class="booking-attr">{{ night }} {{ str_night }} с {{ date_in }} по {{ date_out }}</p>
+
+            <!-- количество гостей -->
+            {% if count_adult == 1 %}
+                {% define 'гость' as str_gost %}
+            {% elif count_adult < 5 %}
+                {% define 'гостя' as str_gost %}
+            {% else %}
+                {% define 'гостей' as str_gost %}
+            {% endif %}
+
+            <p class="booking-attr">{{ count_adult }} {{ str_gost }}</p>
+
+            <!-- Стоимость -->
+            <p class="booking-attr">Стоимость проживания {% widthratio room.price 1 night %} руб.</p>
+
+            <!-- форма брони -->
+            <form method="post" id="booking-form">
+                {% csrf_token %}
+
+                <h2>Контактные данные</h2>
+
+                <div id="booking-fields">
+                    {% for field in form.visible_fields %}
+                        <div class="div-field">
+                            <div>
+                                <p>{{ field.label}} {{ field }}</p>
+                            </div>
+
+                            <div class="div-errors">
+                                {% for error in field.errors %}
+                                    {% if error %}
+                                        {{ error }}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" id="button-booking" onClick="this.value = 'Please Wait!'">Забронировать</button>
+
+                <!--окно загрузки-->
+                <div id="WaitDialog">
+                    <img src="{% static 'img/loading1.gif' %}" alt="loading">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

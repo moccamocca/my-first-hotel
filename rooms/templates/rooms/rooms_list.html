@@ -1,0 +1,68 @@
+{% extends 'index.html' %}
+{% load thumbnail %}
+{% load static %}
+{% load humanize %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/rooms_list.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% for room in rooms %}
+        <div class="room">
+            <!--Фото-карусель-->
+            <div class="photos">
+                <div class="owl-carousel owl-theme owl-carousel-rooms">
+
+    <!--                структура под изображение-->
+    <!--                <div class="item">-->
+    <!--                    <img src="{% static 'img/perm_1.jpg' %}"-->
+    <!--                        alt="perm_1.jpg"-->
+    <!--                        class="img_title">-->
+    <!--                </div>-->
+
+                    {% for photo in photos %}
+                        {% if photo.room_id == room.id %}
+                            {% thumbnail photo.photo "550x450" crop="center" as im %}
+                                <img src="{{ im.url }}"
+                                     alt="Номер {{ room.name }}"
+                                     class="room-img-list">
+                            {% endthumbnail %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+
+            <div class="room-options">
+                <!--Опции-->
+                <div>
+                    <!--Название номера-->
+                    <h2>{{ room.name }}</h2>
+
+                    <ul>
+                        {% for el in options %}
+                            {% if el.room_id == room.id %}
+                                <li>{{ el.option.name }}</li>
+                            {% endif %}
+                        {% endfor %}
+
+                        <!--Вместимость-->
+                        <li>до {{ room.capacity }} чел.</li>
+
+                        <!--Цена-->
+<!--                        <li>{{ room.price }} руб/сутки</li>-->
+
+
+                    </ul>
+                </div>
+
+                <a href="{% url 'booking_filter' %}"><button type="submit">Забронировать от {{ room.price }} руб/сутки</button></a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+
+
+

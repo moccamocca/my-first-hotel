@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/form_modal.css' %}">
+{% endblock %}
+
+{% block js %}
+    <script src = "{% static 'js/form_modal.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    {% if sent  %}
+        <!--показать модальное окно-->
+        <form action="" class="formModal">
+            <div id="idDivModal0">
+                <div id="idDivModal1">
+                    <h1>Бронирование успешно завершено!</h1>
+                    <p>На почту, указанную при бронировании, отправлено подтверждение.</p>
+                    <input type="submit" value="Отлично" id="idModalClose">
+                </div>
+            </div>
+        </form>
+    {% endif %}
+
+    <h1>Тут будут статичные данные на главной странице</h1>
+{% endblock %}
+
+
+

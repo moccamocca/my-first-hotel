@@ -1,0 +1,99 @@
+{% extends 'index.html' %}
+{% load thumbnail %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/booking_filter.css' %}">
+    <link rel="stylesheet" href="{% static 'css/rooms_list.css' %}">
+{% endblock %}
+
+{% block content %}
+    <span class="no-modal"></span>     <!--обработка в form-interval.js-->
+
+
+    <!--------------------------Форма поиска----------------------------->
+    <div id="div-search">
+        <h2>Выберите даты заезда, выезда и количество гостей</h2>
+
+        <form method="get" id="form-search">  <!--данные передаются в url-параметрах-->
+            {% csrf_token %}
+            <div id="div-fields">
+                {% for field in form.visible_fields %}
+                    <div class="div-field">
+                        <div class="div-field-input">
+                            <p class="field-label">{{ field.label_tag  }}</p>
+                            <p class="field-input">{{ field }}</p>
+                        </div>
+
+                        <div class="div-errors">
+                            {% for error in field.errors %}
+                                {% if error %}
+                                    {{ error }}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <button type="submit">НАЙТИ</button>
+        </form>
+    </div>
+
+    <!---------------------Результаты поиска------------------------------->
+    <div>
+        {% for room in rooms %}
+            <div class="room">
+                <!--Фото-карусель-->
+                <div class="photos">
+                    <div class="owl-carousel owl-theme owl-carousel-rooms">
+
+        <!--                структура под изображение-->
+        <!--                <div class="item">-->
+        <!--                    <img src="{% static 'img/perm_1.jpg' %}"-->
+        <!--                        alt="perm_1.jpg"-->
+        <!--                        class="img_title">-->
+        <!--                </div>-->
+
+                        {% for photo in photos %}
+                            {% if photo.room_id == room.id %}
+                                {% thumbnail photo.photo "550x450" crop="center" as im %}
+                                    <img src="{{ im.url }}"
+                                         alt="Номер {{ room.name }}"
+                                         class="room-img-list">
+                                {% endthumbnail %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+
+                <div class="room-options">
+                    <!--Опции-->
+                    <div>
+                        <!--Название номера-->
+                        <h2>{{ room.name }}</h2>
+
+                        <ul>
+                            {% for el in options %}
+                                {% if el.room_id == room.id %}
+                                    <li>{{ el.option.name }}</li>
+                                {% endif %}
+                            {% endfor %}
+
+                            <!--Вместимость-->
+                            <li>до {{ room.capacity }} чел.</li>
+
+                            <!--осталось -->
+                            <li><b>количество свободных номеров:  {{ room.count_room }}</b></li>
+                        </ul>
+                    </div>
+
+                    <form action="{% url 'room_detail' room.id date_in date_out count_adult count_night %}" id="form-booking">
+                        <input type="submit" value="Забронировать от {{ room.price }} руб/сутки">
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

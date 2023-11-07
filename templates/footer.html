@@ -1,0 +1,42 @@
+{% load static %}
+
+<footer>
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+
+    <div id="footer-all">
+        <div id="footer-img"></div>
+
+        <div id="footer-div">
+            <div>
+                <p><a href="{% url 'home' %}">ГЛАВНАЯ</a></p>
+                <p><a href="{% url 'rooms' %}">НОМЕРА</a></p>
+                <p><a href="#">БРОНИРОВАНИЕ</a></p>
+                <p><a href="{% url 'contacts' %}">КОНТАКТЫ</a></p>
+                <p><a href="{% url 'faq' %}">FAQ</a></p>
+            </div>
+
+            <div>
+                <p>TOP HOTEL PERM</p>
+                <p>+7(342)520-23-18</p>
+                <p><a href="mailto:info@hotel.ru">info@hotel.ru</a></p>
+                <p>614039, Пермский край, Пермь</p>
+                <p>ул. Швецова, 39</p>
+            </div>
+
+
+            <div id="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1257.0864119546654!2d56.24992711994911!3d58.00207728402295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x43e8c77b69d71c05%3A0xe38c8b6b0310f910!2zVG9wIHwg0JrQvtC80L_RjNGO0YLQtdGA0L3QsNGPINCw0LrQsNC00LXQvNC40Y8g0J_QtdGA0LzRjA!5e0!3m2!1sru!2sru!4v1698901101574!5m2!1sru!2sru" width="500" height="300" style="border:1px solid grey;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+
+        <div id="copyright">
+            <p>
+                Все права защищены
+                <br>
+                © 2023, TOP HOTEL PERM
+            </p>
+        </div>
+    </div>
+
+
+</footer>

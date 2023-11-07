@@ -1,0 +1,11 @@
+DATABASES = {
+    "default": {
+        'ENGINE':'mssql',
+        'NAME':'hotel',
+        'USER':'DESKTOP-POSFMRO\Little',
+        'PASSWORD':'',
+        'HOST':'(localdb)\MSSQLLocalDB',
+        "OPTIONS": {"driver": "SQL Server Native Client 11.0",
+                    },
+    },
+}

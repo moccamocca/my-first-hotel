@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/faq.css' %}">
+{% endblock %}
+
+{% block js %}
+    <script src = "{% static 'js/faq.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+  <h1 id="faq-h1">Часто задаваемые вопросы.</h1>
+  <div class="faq-container">
+    <ul id="faq-list">
+      {% for faq in faq_all %}
+        <li>
+          <a href="" class="faq-link"  onclick="return false;">{{ faq.question }}</a>
+          <div class="faq-item">
+            {{ faq.answer }}
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

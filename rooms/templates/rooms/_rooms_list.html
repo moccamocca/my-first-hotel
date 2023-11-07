@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+{% load thumbnail %}
+
+{% block content %}
+    {% for room in rooms %}
+        <div>
+            <!--Название номера-->
+            <h2>room.id = {{ room.id }} / {{ room.name }}</h2>
+
+            <!--Цена-->
+            <p><b>{{ room.price }} руб/сутки</b></p>
+
+            <!--Вместимость-->
+            <p>до <b>{{ room.capacity }}</b> чел.</p>
+
+            <!--Фото-->
+            <div>
+                {% for el in room.roomphoto %}
+                    {% if el.room_id == room.id %}
+                        {% thumbnail el.photo "350x220" crop="center" as im %}
+                            <img src="{{ im.url }}" alt="Номер {{ room.name }}">
+                        {% endthumbnail %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <!--Опции-->
+            <div>
+                <ul>
+                    {% for el in room.option %}
+                        {% if el.room_id == room.id %}
+                            <li>{{ el.option.name }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+
